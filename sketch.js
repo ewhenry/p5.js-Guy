@@ -1,16 +1,13 @@
-var gif_loadImg, gif_createImg;
-
 function preload() {
-  gif_loadImg = loadImage("background.gif");
-  gif_createImg = createImg("background.gif");
+  img = loadImage("assets/background.gif");
 }
 
 function setup() {
   background(0);
   createCanvas(650,500);
-  frameRate(30);
+  frameRate(60);
   rectMode(CENTER);
-  createLoop({duration:3, gif:true});
+  ellipseMode(CENTER);
 }
 
 function keyPressed() {
@@ -21,6 +18,6 @@ function keyReleased() {
 
 
 function draw() {
-  image(gif_loadImg, 50, 50);
-  gif_createImg.position(50, 350);
+  //image(img, 0, 0, width, height);
+  ellipse(width/2, height/2, 20, 20)
 }
