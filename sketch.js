@@ -1,23 +1,40 @@
+let man;
+var gif_LoadImg;
+
 function preload() {
-  img = loadImage("assets/background.gif");
+  gif_LoadImg = loadImage("assets/background.gif");
 }
 
 function setup() {
-  background(0);
   createCanvas(650,500);
   frameRate(60);
-  rectMode(CENTER);
   ellipseMode(CENTER);
+  tint(0, 153, 204);
+
+  man = new Guy();
 }
 
-function keyPressed() {
+class Guy {
+  constructor() {
+    this.size = 100;
+    this.x = width/2;
+    this.y = height/2;
+  }
+  render() {
+    ellipse(this.x, this.y, this.size, this.size);
+  }
 }
 
-function keyReleased() {
+function mousePressed() {
+  if (Guy.x === height/2) {
+    Guy.x = height/2 + 20;
+  } else {
+    Guy.x =height/2;
+  }
 }
-
 
 function draw() {
-  //image(img, 0, 0, width, height);
-  ellipse(width/2, height/2, 20, 20)
+  background(0);
+  image(gif_LoadImg, 0, 0, width, height);
+  man.render();
 }
