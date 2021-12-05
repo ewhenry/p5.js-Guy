@@ -29,7 +29,7 @@ function mousePressed() {
   if (Guy.x === height/2) {
     Guy.x = height/2 + 20;
   } else {
-    Guy.x =height/2;
+    Guy.x = height/2;
   }
 }
 
