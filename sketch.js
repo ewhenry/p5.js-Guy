@@ -1,7 +1,9 @@
-var gif_LoadImg, i = 0, j = 0;
-let fr = 60;
+var gif_LoadImg, i = 0, j = 0, fr = 60;
+let mySound;
 
 function preload() {
+  soundFormats('mp3', 'ogg');
+  mySound = loadSound('assets/eating');
   gif_LoadImg = loadImage("assets/background.gif");
 }
 
@@ -133,13 +135,23 @@ class Guy {
 }
 
 function setup() {
-  createCanvas(650,500);
+  let cnv = createCanvas(650,500);
+  cnv.mousePressed(canvasPressed);
+
   frameRate(fr);
   ellipseMode(CENTER);
   rectMode(CENTER);
   angleMode(DEGREES);
   tint(0, 153, 204);
   man = new Guy();
+}
+
+function canvasPressed() {
+  mySound.loop();
+}
+
+function mouseReleased() {
+  mySound.pause();
 }
 
 function draw() {
