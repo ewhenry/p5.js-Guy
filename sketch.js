@@ -1,4 +1,4 @@
-var gif_LoadImg;
+var gif_LoadImg, i = 0, j = 0;
 let fr = 60;
 
 function preload() {
@@ -10,7 +10,6 @@ function DeBug() {
   fill(255);
   textSize(25);
   text(int(getFrameRate()), width - 50, 50);
-  text(man.sizeC, width/2, 100);
   pop();
 }
 
@@ -19,40 +18,130 @@ class Guy {
     this.x = width/2;
     this.y = height/2;
 
-    this.minSize = 100;
-    this.maxSize = 150;
+    this.minSize = 300;
+    this.maxSize = 350;
     
-    this.size = 100;
-    this.sizeC = constrain(this.size, this.minSize, this.maxSize);
+    this.size = 300;
   }
   render() {
-    ellipse(this.x, this.y, this.sizeC, this.sizeC);
+    push();
+    noStroke();
+    fill(230);
+    ellipse(this.x+13, this.y-13, this.size, this.size);
+    pop();
+
+    push();
+    noStroke();
+    ellipse(this.x, this.y, this.size, this.size);
+    pop();
+
+    push();
+    noStroke();
+    fill(0);
+    ellipse(this.x-50, this.y-60, this.size/8, this.size/8);
+    ellipse(this.x+50, this.y-60, this.size/8, this.size/8);
+    pop();
+
+    push();
+    noStroke();
+    fill(0);
+    rotate(30);
+    ellipse(this.x, this.y, this.size/12, this.size/8);
+    pop();
   }
 
-  interact() {
-      if (mouseIsPressed == true) {
-        this.size += 5;
-      }
-      else if (mouseIsPressed == false) {
-        this.size -= 2;
-      }
+  blinking() {
+
+    j += 1;
+
+    if (j >= 140) {
+      j = 0;
     }
+
+    if (j >= 125) {
+      push();
+      noStroke();
+      fill(255);
+      rect(this.x-50, this.y-60, this.size/8, this.size/8);
+      rect(this.x+50, this.y-60, this.size/8, this.size/8);
+      pop();
+
+      push();
+      noStroke();
+      fill(0);
+      rect(this.x-50, this.y-60, this.size/8, this.size/13, 30, 30, 30, 30);
+      rect(this.x+50, this.y-60, this.size/8, this.size/13, 30, 30, 30, 30);
+      pop();
+    } else {
+      push();
+      noStroke();
+      fill(0);
+      ellipse(this.x-50, this.y-60, this.size/8, this.size/8);
+      ellipse(this.x+50, this.y-60, this.size/8, this.size/8);
+      pop();
+    }
+  }
+
+  talking() {
+
+    this.size = constrain(this.size, this.minSize, this.maxSize);
+
+    if (mouseIsPressed == true) {
+      this.size = 325;
+
+      i += 1;
+
+      if (i >= 20) {
+        i = 0;
+      }
+
+      if (i >= 10) {
+        push();
+        fill(0);
+        rect(this.x, this.y+55, this.size/2, this.size/14, 30, 30, 30, 30);
+        pop();
+      } else {
+  
+        push();
+        fill(0);
+        noStroke();
+        ellipse(this.x, this.y+55, this.size/2, this.size/4);
+        pop();
+      }
+    } else {
+
+      i = 0;
+
+      this.size -= 10;
+
+      push();
+      fill(0);
+      rect(this.x, this.y+55, this.size/2, this.size/14, 30, 30, 30, 30);
+      pop();
+    }
+  }
 }
 
 function setup() {
   createCanvas(650,500);
   frameRate(fr);
   ellipseMode(CENTER);
+  rectMode(CENTER);
+  angleMode(DEGREES);
   tint(0, 153, 204);
   man = new Guy();
 }
 
 function draw() {
+
+  console.log(j);
+
   background(0);
   //image(gif_LoadImg, 0, 0, width, height);
 
   DeBug();
 
   man.render();
-  man.interact();
+  man.talking();
+  man.blinking();
 }
