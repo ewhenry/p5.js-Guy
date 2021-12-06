@@ -19,14 +19,17 @@ class Guy {
     this.y = height/2;
 
     this.minSize = 300;
-    this.maxSize = 350;
+    this.maxSize = 325;
     
     this.size = 300;
   }
   render() {
+
+    this.size = constrain(this.size, this.minSize, this.maxSize);
+
     push();
     noStroke();
-    fill(230);
+    fill(230, 100);
     ellipse(this.x+13, this.y-13, this.size, this.size);
     pop();
 
@@ -35,18 +38,25 @@ class Guy {
     ellipse(this.x, this.y, this.size, this.size);
     pop();
 
+    // NOSE
+
     push();
     noStroke();
     fill(0);
-    ellipse(this.x-50, this.y-60, this.size/8, this.size/8);
-    ellipse(this.x+50, this.y-60, this.size/8, this.size/8);
+    ellipse(this.x, this.y-15, this.size/12, this.size/8);
     pop();
 
     push();
     noStroke();
     fill(0);
-    rotate(30);
-    ellipse(this.x, this.y, this.size/12, this.size/8);
+    ellipse(this.x, this.y-3, this.size/8, this.size/12);
+    pop();
+
+    push();
+    noStroke();
+    fill(255);
+    ellipse(this.x+6, this.y+5, this.size/50, this.size/50);
+    ellipse(this.x-6, this.y+5, this.size/50, this.size/50);
     pop();
   }
 
@@ -69,8 +79,8 @@ class Guy {
       push();
       noStroke();
       fill(0);
-      rect(this.x-50, this.y-60, this.size/8, this.size/13, 30, 30, 30, 30);
-      rect(this.x+50, this.y-60, this.size/8, this.size/13, 30, 30, 30, 30);
+      rect(this.x-50, this.y-60, this.size/8, this.size/18, 30, 30, 30, 30);
+      rect(this.x+50, this.y-60, this.size/8, this.size/18, 30, 30, 30, 30);
       pop();
     } else {
       push();
@@ -87,7 +97,7 @@ class Guy {
     this.size = constrain(this.size, this.minSize, this.maxSize);
 
     if (mouseIsPressed == true) {
-      this.size = 325;
+      this.size += 20;
 
       i += 1;
 
@@ -137,7 +147,7 @@ function draw() {
   console.log(j);
 
   background(0);
-  //image(gif_LoadImg, 0, 0, width, height);
+  image(gif_LoadImg, 0, 0, width, height);
 
   DeBug();
 
